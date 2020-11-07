@@ -15,12 +15,12 @@ class ConfigurationTest {
 	
 	private Configurator confOr;
 	private Configuration confIon;
-	/*
+	
 	private PartType EG100,EG133,EG210,ED110,ED180,EH120;
 	private PartType TM5,TM6,TA5,TS6,TSF7,TC120;
 	private PartType XC,XM,XS;
 	private PartType IN,IH,IS;
-	private Category engine,transmission,exterior,interior;*/
+	private Category engine,transmission,exterior,interior;
 	
 	
 	@BeforeEach
@@ -29,7 +29,7 @@ class ConfigurationTest {
 		
 		confIon = confOr.getConfiguration();
 		confIon.clear();
-		/*
+		
 		engine = new CategoryImpl("Engine");
 		transmission = new CategoryImpl("Transmission");
 		exterior = new CategoryImpl("Exterior");
@@ -55,20 +55,13 @@ class ConfigurationTest {
 		
 		IN = new PartTypeImpl("IN",interior);
 		IH = new PartTypeImpl("IH",interior);
-		IS = new PartTypeImpl("IS",interior);*/
+		IS = new PartTypeImpl("IS",interior);
 		
 	}
 	@Test
 	void isCompleteTrue() {
 		
-		Category engine = new CategoryImpl("Engine");
-		Category transmission = new CategoryImpl("Transmission");
-		Category exterior = new CategoryImpl("Exterior");
-		Category interior = new CategoryImpl("Interior");
-		PartType ED110 = new PartTypeImpl("ED110",engine);
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
-		PartType XC = new PartTypeImpl("XC",exterior);
-		PartType IN = new PartTypeImpl("IN",interior);
+
 		
 		confIon.selectPart(ED110);
 		confIon.selectPart(TM5);
@@ -78,14 +71,7 @@ class ConfigurationTest {
 	}
 	@Test
 	void isCompleteFalse() {
-		
-		Category engine = new CategoryImpl("Engine");
-		Category transmission = new CategoryImpl("Transmission");
-		Category exterior = new CategoryImpl("Exterior");
-		
-		PartType ED110 = new PartTypeImpl("ED110",engine);
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
-		PartType XC = new PartTypeImpl("XC",exterior);
+
 		
 		
 		confIon.selectPart(ED110);
@@ -96,7 +82,7 @@ class ConfigurationTest {
 	
 	@Test
 	void getSelectedPart() {
-		Category engine = new CategoryImpl("Engine");
+
 		
 		PartType EG100 = new PartTypeImpl("EG100",engine);
 		
@@ -108,9 +94,9 @@ class ConfigurationTest {
 	}
 	@Test
     void selectPart() {
-		Category engine = new CategoryImpl("Engine");
+
 		
-		PartType EG100 = new PartTypeImpl("EG100",engine);
+
 		
 		
 		confIon.selectPart(EG100);
@@ -118,11 +104,7 @@ class ConfigurationTest {
     }
 	@Test
 	void unselectPart() {
-		Category engine = new CategoryImpl("Engine");
-		Category transmission = new CategoryImpl("Transmission");
-		
-		PartType EG100 = new PartTypeImpl("EG100",engine);
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
+
 		
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
@@ -131,15 +113,7 @@ class ConfigurationTest {
 	}
 	@Test
 	void getSelectionForCategory() {
-		Category engine = new CategoryImpl("Engine");
-		Category transmission = new CategoryImpl("Transmission");
-		Category exterior = new CategoryImpl("Exterior");
-		Category interior = new CategoryImpl("Interior");
-		PartType EG100 = new PartTypeImpl("EG100",engine);
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
-		PartType XC = new PartTypeImpl("XC",exterior);
-		PartType IN = new PartTypeImpl("IN",interior);
-		
+
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);
@@ -152,15 +126,7 @@ class ConfigurationTest {
 	}
 	@Test
 	void clear() {
-		Category engine = new CategoryImpl("Engine");
-		Category transmission = new CategoryImpl("Transmission");
-		Category exterior = new CategoryImpl("Exterior");
-		Category interior = new CategoryImpl("Interior");
-		PartType EG100 = new PartTypeImpl("EG100",engine);
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
-		PartType XC = new PartTypeImpl("XC",exterior);
-		PartType IN = new PartTypeImpl("IN",interior);
-		
+
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);

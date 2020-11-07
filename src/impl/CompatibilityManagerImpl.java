@@ -24,16 +24,20 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 	private Map<PartType,Set<PartType>> lRequirement;
 
 	private Configurator c;
-	
+	/**
+	 * Constructeur de configuration avec les listes d'incompatibilités et requirement remplis
+	 * @param configuratorImpl Configurator relié à ce compatibilityManager
+	 */
 	public CompatibilityManagerImpl(Configurator configuratorImpl) {
 		Objects.requireNonNull(configuratorImpl);
 		this.c = configuratorImpl;
 		lIncomp = new HashMap<PartType,Set<PartType>>();
 		lRequirement = new HashMap<PartType,Set<PartType>>();
 	}
-	
+	/**
+	 * Constructeur pour tests Unitaires
+	 */
 	public CompatibilityManagerImpl() {
-		
 		lIncomp = new HashMap<PartType,Set<PartType>>();
 		lRequirement = new HashMap<PartType,Set<PartType>>();
 	}
@@ -153,4 +157,5 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 		}
 		
 	}
+
 }
