@@ -22,11 +22,18 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 	
 	private Map<PartType,Set<PartType>> lIncomp;
 	private Map<PartType,Set<PartType>> lRequirement;
+
 	private Configurator c;
 	
 	public CompatibilityManagerImpl(Configurator configuratorImpl) {
 		Objects.requireNonNull(configuratorImpl);
 		this.c = configuratorImpl;
+		lIncomp = new HashMap<PartType,Set<PartType>>();
+		lRequirement = new HashMap<PartType,Set<PartType>>();
+	}
+	
+	public CompatibilityManagerImpl() {
+		
 		lIncomp = new HashMap<PartType,Set<PartType>>();
 		lRequirement = new HashMap<PartType,Set<PartType>>();
 	}

@@ -18,5 +18,13 @@ public class CategoryImpl implements Category {
 	public String getName() {
 		return name;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		CategoryImpl cat = (CategoryImpl) o ;
+		return name.equals(cat.getName());
+	}
 
 }

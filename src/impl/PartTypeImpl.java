@@ -28,5 +28,13 @@ public class PartTypeImpl implements PartType{
 	public Category getCategory() {
 		return cat;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		PartType part = (PartType) o ;
+		return name.equals(cat.getName()) && cat.getName().equals(part.getCategory().getName());
+	}
 
 }

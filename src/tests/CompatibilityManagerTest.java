@@ -10,47 +10,30 @@ import impl.*;
 import fr.istic.nplouzeau.cartaylor.api.*;
 
 public class CompatibilityManagerTest {
-	private Configurator confOr;
-	private Configuration confIon;
-	private PartType EG100,EG133,EG210,ED110,ED180,EH120;
-	private PartType TM5,TM6,TA5,TS6,TSF7,TC120;
-	private PartType XC,XM,XS;
-	private PartType IN,IH,IS;
-	private Category engine,transmission,exterior,interior;
+
+	private PartType EG100,EG133,ED110,EH120;
+	private PartType TSF7,TC120;
+
+	private PartType IS;
+	private Category engine,transmission,interior;
 	private CompatibilityManager cm;
 	
 	@BeforeEach
 	private void setUp() {
-		confOr = new ConfiguratorImpl();
-		cm = (CompatibilityManager)confOr.getCompatibilityChecker();
-		confIon = confOr.getConfiguration();
-		confIon.clear();
+		cm = new CompatibilityManagerImpl();
 		
 		engine = new CategoryImpl("Engine");
 		transmission = new CategoryImpl("Transmission");
-		exterior = new CategoryImpl("Exterior");
 		interior = new CategoryImpl("Interior");
 		
 		EG100 = new PartTypeImpl("EG100",engine);
 		EG133 = new PartTypeImpl("EG133",engine);
-		EG210 = new PartTypeImpl("EG210",engine);
 		ED110 = new PartTypeImpl("ED110",engine);
-		ED180 = new PartTypeImpl("ED180",engine);
 		EH120 = new PartTypeImpl("EH120",engine);
 		
-		TM5 = new PartTypeImpl("TM5",transmission);
-		TM6 = new PartTypeImpl("TM6",transmission);
-		TA5 = new PartTypeImpl("TA5",transmission);
-		TS6 = new PartTypeImpl("TS6",transmission);
 		TSF7 = new PartTypeImpl("TSF7",transmission);
 		TC120 = new PartTypeImpl("TC120",transmission);
-		
-		XC = new PartTypeImpl("XC",exterior);
-		XM = new PartTypeImpl("XM",exterior);
-		XS = new PartTypeImpl("XS",exterior);
-		
-		IN = new PartTypeImpl("IN",interior);
-		IH = new PartTypeImpl("IH",interior);
+
 		IS = new PartTypeImpl("IS",interior);
 		
 	}

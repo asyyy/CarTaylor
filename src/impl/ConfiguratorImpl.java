@@ -15,24 +15,21 @@ public class ConfiguratorImpl implements Configurator {
 	private CompatibilityChecker ck;
 	private Map<Category,Set<PartType>> lVariant;
 	
-	
+	/**
+	 * Constructeur de Configurator
+	 */
 	public ConfiguratorImpl() {
 		this.confIon = new ConfigurationImpl(this);
 		this.ck = new CompatibilityManagerImpl(this);
-		
+		initList();
 	}
-	public void initList(Map<Category,Set<PartType>> all) {
+	
+	public void initList() {
 		
 		
 		this.lVariant = new HashMap<Category,Set<PartType>>();
 		this.lCategories = new HashSet<Category>();
 		
-		
-		for(Category cat : all.keySet()) {
-			lCategories.add(cat);
-			lVariant.put(cat, all.get(cat));
-		}
-		/*
 		Category engine = new CategoryImpl("Engine");
 		Category transmission = new CategoryImpl("Transmission");
 		Category interior = new CategoryImpl("Interior");
@@ -83,9 +80,7 @@ public class ConfiguratorImpl implements Configurator {
 	    lVariant.put(engine,lEngine);
 		lVariant.put(transmission,lTrans);
 		lVariant.put(exterior,lExt);
-		lVariant.put(interior,lInt);
-		*/
-		
+		lVariant.put(interior,lInt);	
 	}
 	
 	@Override
@@ -96,9 +91,15 @@ public class ConfiguratorImpl implements Configurator {
 	@Override
 	public Set<PartType> getVariants(Category category) {
 		Objects.requireNonNull(category);
-		return Collections.unmodifiableSet(lVariant.get(category));
+		Category res = new CategoryImpl("");
+		for(Category c : lVariant.keySet()) {
+			if(c.equals(category)) {
+				res = c;
+			}
+		}
+		return Collections.unmodifiableSet(lVariant.get(res));
 	}
-
+	
 	@Override
 	public Configuration getConfiguration() {
 		return confIon;
