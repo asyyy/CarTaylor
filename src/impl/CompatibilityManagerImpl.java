@@ -56,7 +56,8 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 		}else{
 			lIncomp.get(reference).addAll(target);
 		}
-		croiserAddIncompatiblites(reference,target);
+		//croiserAddIncompatiblites(reference,target);
+		croisement(reference,target,lIncomp);
 		
 	}
 	
@@ -88,7 +89,8 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 		}else{
 			lRequirement.get(reference).addAll(target);
 		}
-		croiserAddRequirement(reference,target);
+		//croiserAddRequirement(reference,target);
+		croisement(reference,target,lRequirement);
 		
 	}
 
@@ -109,45 +111,29 @@ public class CompatibilityManagerImpl implements CompatibilityManager {
 		}
 		
 	}
+	
 	/**
-	 * Ajouter reference aux listes d'incompatibilité des toutes les PartType dans target
-	 * @param reference PartType incompatible
-	 * @param target liste de PartType où rajouter reference comme incompatible
+	 * Ajoute reference aux listes de pre-requis/Incompatibilités 
+	 * de toutes les PartType dans target
+	 * @param reference PartType a ajouté
+	 * @param target Set<PartType> a parcourir
+	 * @param map liste des pré-requis/incompatibilites (lIncomp ou lRequirement)
 	 */
-	private void croiserAddIncompatiblites(PartType reference, Set<PartType> target) {
+	private void croisement(PartType reference, Set<PartType> target,Map<PartType,Set<PartType>> map) {
 		Objects.requireNonNull(reference);
 		Objects.requireNonNull(target);
 		for(PartType p : target) {
-			//Si lIncomp ne contient pas encore p
-			if(!lIncomp.containsKey(p)) {
+			//Si map ne contient pas encore p
+			if(!map.containsKey(p)) {
 				Set<PartType> toAdd = new HashSet<PartType>();
 				toAdd.add(reference);
-				lIncomp.put(p,toAdd);
+				map.put(p,toAdd);
 			}else{
-				lIncomp.get(p).add(reference);
+				map.get(p).add(reference);
 			}
 		}
 		
 	}
-	/**
-	 * Ajouter reference aux listes de pré-requis des toutes les PartType dans target
-	 * @param reference PartType pré-requis
-	 * @param target liste de PartType où rajouter reference comme pré-requis
-	 */
-	private void croiserAddRequirement(PartType reference, Set<PartType> target) {
-		Objects.requireNonNull(reference);
-		Objects.requireNonNull(target);
-		for(PartType p : target) {
-			//Si lIncomp ne contient pas encore p
-			if(!lRequirement.containsKey(p)) {
-				Set<PartType> toAdd = new HashSet<PartType>();
-				toAdd.add(reference);
-				lRequirement.put(p,toAdd);
-			}else{
-				lRequirement.get(p).add(reference);
-			}
-		}
-		
-	}
+	
 
 }
