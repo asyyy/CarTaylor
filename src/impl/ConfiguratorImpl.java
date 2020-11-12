@@ -18,15 +18,18 @@ public class ConfiguratorImpl implements Configurator {
 	/**
 	 * Constructeur de Configurator
 	 */
-	public ConfiguratorImpl() {
-		this.confIon = new ConfigurationImpl(this);
-		this.ck = new CompatibilityManagerImpl(this);
+	public ConfiguratorImpl(Configuration c,CompatibilityChecker cm) {
+		
+		this.confIon = c;
+		this.ck = cm;
+		
 		initList();
 	}
 	
 	public void initList() {
-		
-		
+		ConfigurationImpl c2 = (ConfigurationImpl) confIon;
+		c2.linkToConfigurator(this);
+ 		
 		this.lVariant = new HashMap<Category,Set<PartType>>();
 		this.lCategories = new HashSet<Category>();
 		

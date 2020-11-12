@@ -15,7 +15,7 @@ class ConfigurationTest {
 	
 	private Configurator confOr;
 	private Configuration confIon;
-	
+	private CompatibilityChecker cm;
 	private PartType EG100,EG133,EG210,ED110,ED180,EH120;
 	private PartType TM5,TM6,TA5,TS6,TSF7,TC120;
 	private PartType XC,XM,XS;
@@ -25,7 +25,9 @@ class ConfigurationTest {
 	
 	@BeforeEach
 	private void setUp() {
-		confOr = new ConfiguratorImpl();
+		confIon = new ConfigurationImpl();
+		cm = new CompatibilityCheckerImpl();
+		confOr = new ConfiguratorImpl(confIon,cm);
 		
 		confIon = confOr.getConfiguration();
 		confIon.clear();

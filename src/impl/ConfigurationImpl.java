@@ -15,10 +15,17 @@ public class ConfigurationImpl implements Configuration {
 	 * Constructeur de Configuration
 	 * @param confOr le configurateur associé 
 	 */
-	public ConfigurationImpl(Configurator confOr) {
-		Objects.requireNonNull(confOr);
-		this.confOr = confOr;
+	public ConfigurationImpl(/*Configurator confOr*/) {
+		//Objects.requireNonNull(confOr);
+		//this.confOr = confOr;
 		this.selected = new HashSet<PartType>();
+	}
+	/**
+	 * Permet de relié cette configuration a un configurator
+	 * @param c Configurator a relié
+	 */
+	public void linkToConfigurator(Configurator c) {
+		this.confOr = c;
 	}
 	
 	@Override
