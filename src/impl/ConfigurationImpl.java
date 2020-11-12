@@ -45,9 +45,12 @@ public class ConfigurationImpl implements Configuration {
 		for(PartType other : selected) {
 			if(!part.equals(other)) {
 				partRequi = confOr.getCompatibilityChecker().getRequirements(part);
-				if(partRequi.contains(other)) {
-					return false;
+				if(partRequi != null) {
+					if(partRequi.contains(other)) {
+						return false;
+					}
 				}
+				
 			}
 		}
 		return true;
@@ -64,8 +67,10 @@ public class ConfigurationImpl implements Configuration {
 		for(PartType other : selected) {
 			if(!part.equals(other)) {
 				partIncomp = confOr.getCompatibilityChecker().getIncompatibilities(part);
-				if(partIncomp.contains(other)) {
-					return false;
+				if(partIncomp != null) {
+					if(partIncomp.contains(other)) {
+						return false;
+					}
 				}
 			}
 		}

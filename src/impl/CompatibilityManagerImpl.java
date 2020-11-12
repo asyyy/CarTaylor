@@ -12,39 +12,18 @@ import fr.istic.nplouzeau.cartaylor.api.CompatibilityManager;
 import fr.istic.nplouzeau.cartaylor.api.Configurator;
 import fr.istic.nplouzeau.cartaylor.api.PartType;
 
-public class CompatibilityManagerImpl implements CompatibilityManager {
+public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implements CompatibilityManager {
 	
-	/*
-	 * Chaque partType est une clé dans un map ou sa valeur
-	 * est une liste de ses pré-requis/incompatibilité
-	 *  
-	 */
 	
-	private Map<PartType,Set<PartType>> lIncomp;
-	private Map<PartType,Set<PartType>> lRequirement;
-
 	
 	/**
 	 * Constructeur de CompatibilityManagerImpl
 	 * 
 	 */
 	public CompatibilityManagerImpl() {
-		lIncomp = new HashMap<PartType,Set<PartType>>();
-		lRequirement = new HashMap<PartType,Set<PartType>>();
+		super();
 	}
 
-	
-	
-	@Override
-	public Set<PartType> getIncompatibilities(PartType reference) {
-		Objects.requireNonNull(reference);
-		return Collections.unmodifiableSet(lIncomp.get(reference));
-	}
-
-	@Override
-	public Set<PartType> getRequirements(PartType reference) {
-		return Collections.unmodifiableSet(lRequirement.get(reference));
-	}
 
 	@Override
 	public void addIncompatibilities(PartType reference, Set<PartType> target) {

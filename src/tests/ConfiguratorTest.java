@@ -15,6 +15,7 @@ import org.junit.jupiter.api.*;
 import fr.istic.nplouzeau.cartaylor.api.*;
 import impl.CategoryImpl;
 import impl.CompatibilityCheckerImpl;
+import impl.CompatibilityManagerImpl;
 import impl.ConfigurationImpl;
 import impl.ConfiguratorImpl;
 import impl.PartTypeImpl;
@@ -22,7 +23,8 @@ import impl.PartTypeImpl;
 public class ConfiguratorTest {
 	private Configurator c;
 	private Configuration confIon;
-	private CompatibilityChecker cm;
+	private CompatibilityChecker ck;
+	private CompatibilityManager cm;
 	private PartType IN,IH,IS;
 	private Category interior;
 
@@ -39,7 +41,7 @@ public class ConfiguratorTest {
 	@BeforeEach
 	private void setUp() {
 		confIon = new ConfigurationImpl();
-		cm = new CompatibilityCheckerImpl();
+		cm = new CompatibilityManagerImpl();
 		c = new ConfiguratorImpl(confIon,cm);
 		initList();
 		

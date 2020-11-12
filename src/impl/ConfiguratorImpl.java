@@ -1,4 +1,6 @@
 package impl;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,10 +20,10 @@ public class ConfiguratorImpl implements Configurator {
 	/**
 	 * Constructeur de Configurator
 	 */
-	public ConfiguratorImpl(Configuration c,CompatibilityChecker cm) {
+	public ConfiguratorImpl(Configuration c,CompatibilityChecker ck) {
 		
 		this.confIon = c;
-		this.ck = cm;
+		this.ck = ck;
 		
 		initList();
 	}
@@ -83,7 +85,43 @@ public class ConfiguratorImpl implements Configurator {
 	    lVariant.put(engine,lEngine);
 		lVariant.put(transmission,lTrans);
 		lVariant.put(exterior,lExt);
-		lVariant.put(interior,lInt);	
+		lVariant.put(interior,lInt);
+		
+		CompatibilityManagerImpl cm = (CompatibilityManagerImpl) ck;
+		
+		//Ajout pre-requis
+		Set<PartType> lTC120 = new HashSet<>();
+		Set<PartType> lEH120 = new HashSet<>();
+		
+		lTC120.add(EH120);
+		lEH120.add(TC120);
+		
+		cm.addRequirements(TC120, lTC120);
+		cm.addRequirements(EH120, lEH120);
+	
+		Set<PartType> compareTC120 = cm.getRequirements(TC120);
+		Set<PartType> compareEH120 = cm.getRequirements(EH120);
+
+		//Ajout incompatibilites
+		Set<PartType> lTSF7 = new HashSet<>();
+		Set<PartType> lED110 = new HashSet<>();
+		Set<PartType> lEG133 = new HashSet<>();
+		Set<PartType> lEG100 = new HashSet<>();
+		
+		lTSF7.add(ED110);lTSF7.add(EG133);lTSF7.add(EG100);
+		lEG100.add(ED110);lEG100.add(EG133);lEG100.add(TSF7);
+		lEG133.add(ED110);lEG133.add(TSF7);lEG133.add(EG100);
+		lED110.add(TSF7);lED110.add(EG133);lED110.add(EG100);
+		
+		cm.addIncompatibilities(TSF7, lTSF7);
+		cm.addIncompatibilities(ED110, lED110);
+		cm.addIncompatibilities(EG133, lEG133);
+		cm.addIncompatibilities(EG100, lEG100);
+		
+		Set<PartType> compareTSF7 = cm.getIncompatibilities(TSF7);
+		Set<PartType> compareED110 = cm.getIncompatibilities(ED110);
+		Set<PartType> compareEG133 = cm.getIncompatibilities(EG133);
+		Set<PartType> compareEG100 = cm.getIncompatibilities(EG100);
 	}
 	
 	@Override
@@ -110,7 +148,7 @@ public class ConfiguratorImpl implements Configurator {
 
 	@Override
 	public CompatibilityChecker getCompatibilityChecker() {	
-		return ck;
+		return this.ck;
 	}
 
 }

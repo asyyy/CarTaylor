@@ -15,7 +15,8 @@ class ConfigurationTest {
 	
 	private Configurator confOr;
 	private Configuration confIon;
-	private CompatibilityChecker cm;
+	private CompatibilityChecker ck;
+	private CompatibilityManager cm;
 	private PartType EG100,EG133,EG210,ED110,ED180,EH120;
 	private PartType TM5,TM6,TA5,TS6,TSF7,TC120;
 	private PartType XC,XM,XS;
@@ -26,8 +27,9 @@ class ConfigurationTest {
 	@BeforeEach
 	private void setUp() {
 		confIon = new ConfigurationImpl();
-		cm = new CompatibilityCheckerImpl();
+		cm = new CompatibilityManagerImpl();
 		confOr = new ConfiguratorImpl(confIon,cm);
+		
 		
 		confIon = confOr.getConfiguration();
 		confIon.clear();
@@ -81,7 +83,15 @@ class ConfigurationTest {
 		confIon.selectPart(XC);
 		assertFalse(confIon.isComplete());
 	}
-	
+	@Test
+	void isValid() {
+				
+		confIon.selectPart(EG100);
+		confIon.selectPart(TM5);
+		confIon.selectPart(XC);
+		confIon.selectPart(IN);
+		assertTrue(confIon.isValid());
+	}
 	@Test
 	void getSelectedPart() {
 
