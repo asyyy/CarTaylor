@@ -9,14 +9,16 @@ import fr.istic.nplouzeau.cartaylor.api.*;
 
 public class CompatibilityCheckerImpl implements CompatibilityChecker{
 	/*
-	 * Chaque partType est une clé dans un map ou sa valeur
-	 * est une liste de ses pré-requis/incompatibilité
+	 * Chaque partType est une cle dans un map et sa valeur
+	 * est une liste de ses pre-requis/incompatibilite
 	 *  
 	 */
 	
 	public Map<PartType,Set<PartType>> lIncomp;
 	public Map<PartType,Set<PartType>> lRequirement;
-
+	/**
+	 * Constructeur de CompatibilityCheckImpl
+	 */
 	public CompatibilityCheckerImpl(){
 		lIncomp = new HashMap<PartType,Set<PartType>>();
 		lRequirement = new HashMap<PartType,Set<PartType>>();

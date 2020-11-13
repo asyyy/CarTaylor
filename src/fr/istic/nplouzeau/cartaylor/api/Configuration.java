@@ -31,7 +31,7 @@ public interface Configuration {
 
     /**
      * Retourne la selection d'une categorie de piece
-     * @param category 
+     * @param category Category cible
      * @return PartType pièce de la Category demande
      */
     PartType getSelectionForCategory(Category category);
@@ -43,7 +43,7 @@ public interface Configuration {
     void unselectPartType(Category categoryToClear);
 
     /**
-     * Supprimer toutes les pieces de la configuration
+     * Supprimer toutes les pieces de la selection.
      */
     void clear();
 

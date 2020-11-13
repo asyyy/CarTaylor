@@ -10,77 +10,73 @@ import fr.istic.nplouzeau.cartaylor.api.*;
 public class ConfigurationImpl implements Configuration {
 	private Configurator confOr;
 	private Set<PartType> selected;
-	
+
 	/**
 	 * Constructeur de Configuration
-	 * @param confOr le configurateur associé 
+	 * 
 	 */
-	public ConfigurationImpl(/*Configurator confOr*/) {
-		//Objects.requireNonNull(confOr);
-		//this.confOr = confOr;
+	public ConfigurationImpl() {
+		
 		this.selected = new HashSet<PartType>();
 	}
 	/**
-	 * Permet de relié cette configuration a un configurator
-	 * @param c Configurator a relié
+	 * Permet de relie cette configuration a un configurator
+	 * @param c Configurator a relie
 	 */
 	public void linkToConfigurator(Configurator c) {
 		this.confOr = c;
 	}
-	
+
 	@Override
 	public boolean isValid() {
-		//Aucune incompatibilités/Tout les pré requis
+		//Aucune incompatibilites/Tout les pre requis
 		for(PartType s : selected) {
-			if(!verifIncomp(s,selected) || !verifRequirement(s,selected)) {
+			if(verifCondition(s,selected,true) || verifCondition(s,selected,false)) {
 				return false;
 			}
 		}
-		
 		return true;
 	}
-	
-	private boolean verifRequirement(PartType part, Set<PartType> selected) {
-		Set<PartType> partRequi;
-		for(PartType other : selected) {
-			if(!part.equals(other)) {
-				partRequi = confOr.getCompatibilityChecker().getRequirements(part);
-				if(partRequi != null) {
-					if(partRequi.contains(other)) {
-						return false;
-					}
-				}
-				
-			}
-		}
-		return true;
-	}
+
 	/**
-	 * Vérifie si une part possède des incompatibilités dans une liste de PartType
-	 * @param part ciblé
-	 * @param selected liste des autres partType 
-	 * @return false s'il existe une incompatibilité
+	 * Verifie si une PartType possede des pre-requis/incompatibilites dans une liste de PartType
+	 * @param part PartType cible
+	 * @param selected liste de PartType a compare avec part
+	 * @param b true-> getRequirement | false -> getIncompatibilities
+	 * @return false s'il existe un probleme de ccompatibilite, true sinon
 	 */
-	private boolean verifIncomp(PartType part,Set<PartType> selected) {
-		Set<PartType> partIncomp;
-		
+	private boolean verifCondition(PartType part,Set<PartType> selected, boolean b) {
+		Set<PartType> lPart;
+
 		for(PartType other : selected) {
 			if(!part.equals(other)) {
-				partIncomp = confOr.getCompatibilityChecker().getIncompatibilities(part);
-				if(partIncomp != null) {
-					if(partIncomp.contains(other)) {
-						return false;
+				// Si b == true, on regarde les Requirement d'une PartType
+				if(b) {
+					lPart = confOr.getCompatibilityChecker().getRequirements(part);
+					if(lPart != null) {
+						if(!lPart.contains(other)) {
+							return true;
+						}
 					}
-				}
+				// Sinon b == false,  et on regarde les Incompatibilites d'une PartType
+				}else {
+					lPart = confOr.getCompatibilityChecker().getIncompatibilities(part);
+					if(lPart != null) {
+						if(lPart.contains(other)) {
+							return true;
+						}
+					}
+				}				
+
 			}
 		}
-		return true;
+		return false;
 	}
 	/**
-	 * Regarde si une catégorie est présente parmis une liste de PartType
-	 * @param c Category ciblé
-	 * @param selected liste de PartType a vérifié
-	 * @return true si c est présent parmis les categories de selected
+	 * Regarde si une categorie est presente parmis une liste de PartType
+	 * @param c Category cible
+	 * @param selected liste de PartType a verifie
+	 * @return true si c est present parmis les categories de selected
 	 */
 	private boolean checkCategories(Category c, Set<PartType> selected) {
 		for(PartType p : selected) {
@@ -90,6 +86,7 @@ public class ConfigurationImpl implements Configuration {
 		}
 		return false;
 	}
+
 
 	@Override
 	public boolean isComplete() {
@@ -121,7 +118,7 @@ public class ConfigurationImpl implements Configuration {
 				return s;
 			}
 		}
-		System.out.println("getSelectionForCategory -> Aucune PartType pour cette catégorie dans selected");
+		System.out.println("getSelectionForCategory -> Aucune PartType pour cette categorie dans selected");
 		return null; 
 	}
 
@@ -136,7 +133,7 @@ public class ConfigurationImpl implements Configuration {
 			}
 		}
 		if(error) 
-			System.out.println("unselectPartType -> Aucune PartType pour cette catégorie dans selected");
+			System.out.println("unselectPartType -> Aucune PartType pour cette categorie dans selected");
 	}
 
 	@Override

@@ -1,20 +1,14 @@
 package impl;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import fr.istic.nplouzeau.cartaylor.api.Category;
-import fr.istic.nplouzeau.cartaylor.api.CompatibilityChecker;
 import fr.istic.nplouzeau.cartaylor.api.CompatibilityManager;
-import fr.istic.nplouzeau.cartaylor.api.Configurator;
+
 import fr.istic.nplouzeau.cartaylor.api.PartType;
 
 public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implements CompatibilityManager {
-	
-	
 	
 	/**
 	 * Constructeur de CompatibilityManagerImpl
@@ -23,7 +17,6 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 	public CompatibilityManagerImpl() {
 		super();
 	}
-
 
 	@Override
 	public void addIncompatibilities(PartType reference, Set<PartType> target) {
@@ -35,7 +28,6 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 		}else{
 			lIncomp.get(reference).addAll(target);
 		}
-		//croiserAddIncompatiblites(reference,target);
 		croisement(reference,target,lIncomp);
 		
 	}
@@ -47,13 +39,13 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 		if(lIncomp.containsKey(reference)) {
 			lIncomp.get(reference).remove(target);
 			
-			//Si on supprime une incompatibilité d'un côté, il faut aussi supprimer reference des incomp de target
+			//Si on supprime une incompatibilite d'un côte, il faut aussi supprimer reference des incomp de target
 			if(lIncomp.containsKey(target)) {
 				lIncomp.get(target).remove(reference);
 			}
 			
 		}else {
-			System.out.println(reference + " n'est pas une clé dans la liste d'incompatibilité");
+			System.out.println(reference + " n'est pas une cle dans la liste d'incompatibilite");
 		}
 		
 	}
@@ -68,7 +60,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 		}else{
 			lRequirement.get(reference).addAll(target);
 		}
-		//croiserAddRequirement(reference,target);
+
 		croisement(reference,target,lRequirement);
 		
 	}
@@ -80,23 +72,23 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 		if(lRequirement.containsKey(reference)) {
 			lRequirement.get(reference).remove(target);
 			
-			//Si on supprime une incompatibilité d'un côté, il faut la supprimer de l'autre
+			//Si on supprime une incompatibilite d'un côte, il faut la supprimer de l'autre
 			if(lRequirement.containsKey(target)) {
 				lRequirement.get(target).remove(reference);
 			}
 			
 		}else {
-			System.out.println(reference + " n'est pas une clé dans la liste de pré-requis");
+			System.out.println(reference + " n'est pas une cle dans la liste de pre-requis");
 		}
 		
 	}
 	
 	/**
-	 * Ajoute reference aux listes de pre-requis/Incompatibilités 
+	 * Ajoute reference aux listes de pre-requis/Incompatibilites 
 	 * de toutes les PartType dans target
-	 * @param reference PartType a ajouté
+	 * @param reference PartType a ajoute
 	 * @param target Set<PartType> a parcourir
-	 * @param map liste des pré-requis/incompatibilites (lIncomp ou lRequirement)
+	 * @param map liste des pre-requis/incompatibilites (lIncomp ou lRequirement)
 	 */
 	private void croisement(PartType reference, Set<PartType> target,Map<PartType,Set<PartType>> map) {
 		Objects.requireNonNull(reference);

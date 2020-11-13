@@ -5,10 +5,10 @@ import java.util.Objects;
 import fr.istic.nplouzeau.cartaylor.api.Category;
 
 public class CategoryImpl implements Category {
-	private String name = "Nom de la catégorie pas encore défini";
+	private String name = "Nom de la categorie pas encore defini";
 	/**
-	 * Constructeur de catégorie
-	 * @param name nom de la catégorie
+	 * Constructeur de categorie
+	 * @param name nom de la categorie
 	 */
 	public CategoryImpl(String name) {
 		Objects.requireNonNull(name);

@@ -84,13 +84,32 @@ class ConfigurationTest {
 		assertFalse(confIon.isComplete());
 	}
 	@Test
-	void isValid() {
+	void isValidTrue() {
 				
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);
 		confIon.selectPart(IN);
 		assertTrue(confIon.isValid());
+	}
+	@Test
+	void isValidFalseIncompatibility() {
+				
+		confIon.selectPart(EG100);
+		confIon.selectPart(TSF7);
+		confIon.selectPart(XC);
+		confIon.selectPart(IN);
+		assertFalse(confIon.isValid());
+	}
+	@Test
+	void isValidFalseRequirement() {
+				
+		confIon.selectPart(TC120);
+		confIon.selectPart(TSF7);
+		confIon.selectPart(XC);
+		confIon.selectPart(IN);
+		
+		assertFalse(confIon.isValid());
 	}
 	@Test
 	void getSelectedPart() {

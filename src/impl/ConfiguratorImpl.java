@@ -1,5 +1,4 @@
 package impl;
-import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,16 +17,47 @@ public class ConfiguratorImpl implements Configurator {
 	private Map<Category,Set<PartType>> lVariant;
 	
 	/**
-	 * Constructeur de Configurator
+	 * Constructeur de ConfiguratorImpl
+	 * @param c Configuration associe à ce Configurator
+	 * @param ck CompatibilityChecker associe à ce Configurator
 	 */
 	public ConfiguratorImpl(Configuration c,CompatibilityChecker ck) {
-		
 		this.confIon = c;
 		this.ck = ck;
-		
 		initList();
 	}
 	
+	
+	@Override
+	public Set<Category> getCategories() {
+		return Collections.unmodifiableSet(lCategories);
+	}
+
+	@Override
+	public Set<PartType> getVariants(Category category) {
+		Objects.requireNonNull(category);
+		Category res = new CategoryImpl("");
+		for(Category c : lVariant.keySet()) {
+			if(c.equals(category)) {
+				res = c;
+			}
+		}
+		return Collections.unmodifiableSet(lVariant.get(res));
+	}
+	
+	@Override
+	public Configuration getConfiguration() {
+		return confIon;
+	}
+
+	@Override
+	public CompatibilityChecker getCompatibilityChecker() {	
+		return this.ck;
+	}
+	
+	/**
+	 * initialise lCategories, lVariant et quelques compatibilites
+	 */
 	public void initList() {
 		ConfigurationImpl c2 = (ConfigurationImpl) confIon;
 		c2.linkToConfigurator(this);
@@ -98,10 +128,8 @@ public class ConfiguratorImpl implements Configurator {
 		
 		cm.addRequirements(TC120, lTC120);
 		cm.addRequirements(EH120, lEH120);
-	
-		Set<PartType> compareTC120 = cm.getRequirements(TC120);
-		Set<PartType> compareEH120 = cm.getRequirements(EH120);
-
+		cm.getRequirements(TC120);
+		
 		//Ajout incompatibilites
 		Set<PartType> lTSF7 = new HashSet<>();
 		Set<PartType> lED110 = new HashSet<>();
@@ -117,38 +145,7 @@ public class ConfiguratorImpl implements Configurator {
 		cm.addIncompatibilities(ED110, lED110);
 		cm.addIncompatibilities(EG133, lEG133);
 		cm.addIncompatibilities(EG100, lEG100);
-		
-		Set<PartType> compareTSF7 = cm.getIncompatibilities(TSF7);
-		Set<PartType> compareED110 = cm.getIncompatibilities(ED110);
-		Set<PartType> compareEG133 = cm.getIncompatibilities(EG133);
-		Set<PartType> compareEG100 = cm.getIncompatibilities(EG100);
-	}
-	
-	@Override
-	public Set<Category> getCategories() {
-		return Collections.unmodifiableSet(lCategories);
-	}
 
-	@Override
-	public Set<PartType> getVariants(Category category) {
-		Objects.requireNonNull(category);
-		Category res = new CategoryImpl("");
-		for(Category c : lVariant.keySet()) {
-			if(c.equals(category)) {
-				res = c;
-			}
-		}
-		return Collections.unmodifiableSet(lVariant.get(res));
-	}
-	
-	@Override
-	public Configuration getConfiguration() {
-		return confIon;
-	}
-
-	@Override
-	public CompatibilityChecker getCompatibilityChecker() {	
-		return this.ck;
 	}
 
 }

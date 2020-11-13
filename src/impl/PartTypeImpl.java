@@ -5,13 +5,13 @@ import java.util.Objects;
 import fr.istic.nplouzeau.cartaylor.api.*;
 
 public class PartTypeImpl implements PartType{
-	private String name = "Nom de la partie pas encore défini";
+	private String name = "Nom de PartType pas encore defini";
 	private Category cat;
 	
 	/**
 	 * Constructeur de PartType
-	 * @param name
-	 * @param cat  Category non null
+	 * @param name String nom de la PartType
+	 * @param cat Category associe, non null
 	 */
 	public PartTypeImpl(String name, Category cat) {
 		Objects.requireNonNull(cat);

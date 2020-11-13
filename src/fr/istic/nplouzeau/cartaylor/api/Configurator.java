@@ -11,7 +11,7 @@ public interface Configurator {
 
     /**
      * Retourne toutes les variantes d'une catégorie
-     * @param category 
+     * @param category Category cible
      * @return Set<PartType>
      */
     Set<PartType> getVariants(Category category);
