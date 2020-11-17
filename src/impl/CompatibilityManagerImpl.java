@@ -45,7 +45,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 			}
 			
 		}else {
-			System.out.println(reference + " n'est pas une cle dans la liste d'incompatibilite");
+			System.err.println(reference + " n'est pas une cle dans la liste d'incompatibilite");
 		}
 		
 	}
@@ -78,7 +78,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 			}
 			
 		}else {
-			System.out.println(reference + " n'est pas une cle dans la liste de pre-requis");
+			System.err.println(reference + " n'est pas une cle dans la liste de pre-requis");
 		}
 		
 	}

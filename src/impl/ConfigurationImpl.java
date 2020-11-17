@@ -114,7 +114,7 @@ public class ConfigurationImpl implements Configuration {
 				return s;
 			}
 		}
-		System.out.println("getSelectionForCategory -> Aucune PartType pour cette categorie dans selected");
+		System.err.println("getSelectionForCategory -> Aucune PartType pour cette categorie dans selected");
 		return null; 
 	}
 
@@ -129,7 +129,7 @@ public class ConfigurationImpl implements Configuration {
 			}
 		}
 		if(error) 
-			System.out.println("unselectPartType -> Aucune PartType pour cette categorie dans selected");
+			System.err.print("unselectPartType -> Aucune PartType pour cette categorie dans selected");
 	}
 
 	@Override
