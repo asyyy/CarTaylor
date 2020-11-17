@@ -65,8 +65,8 @@ public class ConfiguratorTest {
 		compare.add(IH);
 		compare.add(IS);
 		
-		List<String> lComp = new ArrayList<String>();
-		List<String> lCInt = new ArrayList<String>();
+		List<String> lComp = new ArrayList<>();
+		List<String> lCInt = new ArrayList<>();
 		
 		
 		for(PartType p : compare) {

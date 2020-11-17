@@ -5,6 +5,7 @@ import java.util.Objects;
 import fr.istic.nplouzeau.cartaylor.api.Category;
 
 public class CategoryImpl implements Category {
+	
 	private String name = "Nom de la categorie pas encore defini";
 	/**
 	 * Constructeur de categorie

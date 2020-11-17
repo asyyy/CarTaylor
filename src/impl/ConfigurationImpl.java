@@ -8,6 +8,7 @@ import fr.istic.nplouzeau.cartaylor.api.*;
 
 
 public class ConfigurationImpl implements Configuration {
+
 	private Configurator confOr;
 	private Set<PartType> selected;
 
@@ -15,9 +16,8 @@ public class ConfigurationImpl implements Configuration {
 	 * Constructeur de Configuration
 	 * 
 	 */
-	public ConfigurationImpl() {
-		
-		this.selected = new HashSet<PartType>();
+	public ConfigurationImpl() {	
+		this.selected = new HashSet<>();
 	}
 	/**
 	 * Permet de relie cette configuration a un configurator
@@ -45,26 +45,22 @@ public class ConfigurationImpl implements Configuration {
 	 * @param b true-> getRequirement | false -> getIncompatibilities
 	 * @return false s'il existe un probleme de ccompatibilite, true sinon
 	 */
-	private boolean verifCondition(PartType part,Set<PartType> selected, boolean b) {
+	private boolean verifCondition(PartType part,Set<PartType> selected, boolean reqOrIncomp) {
 		Set<PartType> lPart;
 
 		for(PartType other : selected) {
 			if(!part.equals(other)) {
 				// Si b == true, on regarde les Requirement d'une PartType
-				if(b) {
+				if(reqOrIncomp) {
 					lPart = confOr.getCompatibilityChecker().getRequirements(part);
-					if(lPart != null) {
-						if(!lPart.contains(other)) {
-							return true;
-						}
+					if(lPart != null && !lPart.contains(other)) {
+						return true;
 					}
-				// Sinon b == false,  et on regarde les Incompatibilites d'une PartType
+					// Sinon b == false,  et on regarde les Incompatibilites d'une PartType
 				}else {
 					lPart = confOr.getCompatibilityChecker().getIncompatibilities(part);
-					if(lPart != null) {
-						if(lPart.contains(other)) {
-							return true;
-						}
+					if(lPart != null && lPart.contains(other)) {
+						return true;
 					}
 				}				
 

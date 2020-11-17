@@ -96,7 +96,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 		for(PartType p : target) {
 			//Si map ne contient pas encore p
 			if(!map.containsKey(p)) {
-				Set<PartType> toAdd = new HashSet<PartType>();
+				Set<PartType> toAdd = new HashSet<>();
 				toAdd.add(reference);
 				map.put(p,toAdd);
 			}else{

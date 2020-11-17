@@ -119,19 +119,20 @@ class ConfigurationTest {
 		
 		
 		confIon.selectPart(EG100);
-		Set<PartType> compare = new HashSet<PartType>();
+		Set<PartType> compare = new HashSet<>();
 		compare.add(EG100);
 		assertEquals(confIon.getSelectedParts(),compare);
 	}
 	@Test
-    void selectPart() {
-
-		
-
-		
-		
+    void selectPartTrue() {
 		confIon.selectPart(EG100);
 		assertTrue(confIon.getSelectedParts().contains(EG100));
+    }
+	
+	@Test
+    void selectPartFalse() {
+		confIon.selectPart(EG100);
+		assertFalse(confIon.getSelectedParts().contains(EG210));
     }
 	@Test
 	void unselectPart() {

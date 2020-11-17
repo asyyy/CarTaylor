@@ -89,6 +89,7 @@ public class CompatibilityManagerTest {
 		Set<PartType> lEG133 = new HashSet<>();
 		Set<PartType> lEG100 = new HashSet<>();
 		
+		//Remplit liste d'incompatibilités
 		lTSF7.add(ED110);lTSF7.add(EG133);lTSF7.add(EG100);
 		lEG100.add(ED110);lEG100.add(EG133);lEG100.add(TSF7);
 		lEG133.add(ED110);lEG133.add(TSF7);lEG133.add(EG100);
@@ -99,15 +100,10 @@ public class CompatibilityManagerTest {
 		cm.addIncompatibilities(EG133, lEG133);
 		cm.addIncompatibilities(EG100, lEG100);
 		
-		Set<PartType> compareTSF7 = cm.getIncompatibilities(TSF7);
-		Set<PartType> compareED110 = cm.getIncompatibilities(ED110);
-		Set<PartType> compareEG133 = cm.getIncompatibilities(EG133);
-		Set<PartType> compareEG100 = cm.getIncompatibilities(EG100);
-		
-		assertEquals(compareTSF7,lTSF7);
-		assertEquals(compareED110,lED110);
-		assertEquals(compareEG133,lEG133);
-		assertEquals(compareEG100,lEG100);
+		assertEquals(cm.getIncompatibilities(TSF7),lTSF7);
+		assertEquals(cm.getIncompatibilities(ED110),lED110);
+		assertEquals(cm.getIncompatibilities(EG133),lEG133);
+		assertEquals(cm.getIncompatibilities(EG100),lEG100);
 	
 	}
 	@Test
@@ -136,22 +132,17 @@ public class CompatibilityManagerTest {
 		lTC120.add(EH120);lTC120.add(IS);
 		lIS.add(TC120);
 		
-		//Vérification qu'on ajoute bien la liste de requirement
 		cm.addRequirements(TC120, lTC120);
-		Set<PartType> compareTC120before = cm.getRequirements(TC120);
-		Set<PartType> compareISbefore = cm.getRequirements(IS);
-		assertEquals(compareTC120before,lTC120);
-		assertEquals(compareISbefore,lIS);
 		
 		//On supprime un même élément des 2 listes que l'on compare
 		lTC120.remove(IS);		
 		lIS.remove(TC120);
 		cm.removeRequirement(TC120, IS);	
-		Set<PartType> compareTC120after = cm.getRequirements(TC120);
-		Set<PartType> compareISafter = cm.getRequirements(IS);	
+		Set<PartType> compareTC120 = cm.getRequirements(TC120);
+		Set<PartType> compareIS = cm.getRequirements(IS);	
 		
-		assertEquals(compareTC120after,lTC120);
-		assertEquals(compareISafter,lIS);
+		assertEquals(compareTC120,lTC120);
+		assertEquals(compareIS,lIS);
 		
 	}
 	@Test
@@ -160,15 +151,12 @@ public class CompatibilityManagerTest {
 		Set<PartType> lTSF7 = new HashSet<>();
 		lTSF7.add(ED110);lTSF7.add(EG133);lTSF7.add(EG100);
 				
-		//Vérification qu'on ajoute bien la liste d'incompatibilités
 		cm.addIncompatibilities(TSF7, lTSF7);		
-		Set<PartType> compare = cm.getIncompatibilities(TSF7);		
-		assertEquals(compare,lTSF7);
-		
+			
 		lTSF7.remove(ED110);
 		cm.removeIncompatibility(TSF7, ED110);
-		Set<PartType> compare2 = cm.getIncompatibilities(TSF7);
-		assertEquals(compare2,lTSF7);
+		Set<PartType> compare = cm.getIncompatibilities(TSF7);
+		assertEquals(compare,lTSF7);
 			
 	}
 	@Test
@@ -193,10 +181,6 @@ public class CompatibilityManagerTest {
 		Set<PartType> compareED110 = cm.getIncompatibilities(ED110);
 		Set<PartType> compareEG133 = cm.getIncompatibilities(EG133);
 		Set<PartType> compareEG100 = cm.getIncompatibilities(EG100);
-		assertEquals(compareTSF7,lTSF7);
-		assertEquals(compareED110,lED110);
-		assertEquals(compareEG133,lEG133);
-		assertEquals(compareEG100,lEG100);
 		
 		lTSF7.remove(ED110);
 		lED110.remove(TSF7);

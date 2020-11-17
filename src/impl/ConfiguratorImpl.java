@@ -62,8 +62,8 @@ public class ConfiguratorImpl implements Configurator {
 		ConfigurationImpl c2 = (ConfigurationImpl) confIon;
 		c2.linkToConfigurator(this);
  		
-		this.lVariant = new HashMap<Category,Set<PartType>>();
-		this.lCategories = new HashSet<Category>();
+		this.lVariant = new HashMap<>();
+		this.lCategories = new HashSet<>();
 		
 		Category engine = new CategoryImpl("Engine");
 		Category transmission = new CategoryImpl("Transmission");
@@ -97,10 +97,10 @@ public class ConfiguratorImpl implements Configurator {
 		PartType IH = new PartTypeImpl("IH",interior);
 		PartType IS = new PartTypeImpl("IS",interior);
 		
-		Set<PartType> lEngine = new HashSet<PartType>();
-		Set<PartType> lTrans = new HashSet<PartType>();
-		Set<PartType> lExt = new HashSet<PartType>();
-		Set<PartType> lInt = new HashSet<PartType>();
+		Set<PartType> lEngine = new HashSet<>();
+		Set<PartType> lTrans = new HashSet<>();
+		Set<PartType> lExt = new HashSet<>();
+		Set<PartType> lInt = new HashSet<>();
 		
 		lEngine.add(EG100);lEngine.add(EG133);lEngine.add(EG210);
 		lEngine.add(ED110);lEngine.add(ED180);lEngine.add(EH120);
