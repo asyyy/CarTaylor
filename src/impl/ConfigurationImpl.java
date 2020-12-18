@@ -49,6 +49,9 @@ public class ConfigurationImpl implements Configuration {
 	 * @return false s'il existe un probleme de compatibilite, true sinon
 	 */
 	private boolean verifCondition(Part part,Set<Part> selected, boolean reqOrIncomp) {
+		Objects.requireNonNull(part);
+		Objects.requireNonNull(selected);
+		Objects.requireNonNull(reqOrIncomp);
 		for(Part other : selected) {
 			if(!part.equals(other)) {
 				// Si b == true, on regarde les Requirement d'une PartType
@@ -75,6 +78,8 @@ public class ConfigurationImpl implements Configuration {
 	 * @return true si other n'est pas dans requirement de part
 	 */
 	private boolean verifConditionReq(Part part,Part other) {
+		Objects.requireNonNull(part);
+		Objects.requireNonNull(other);
 		Set<PartType> lPart = confOr.getCompatibilityChecker().getRequirements(part.getType());
 		
 		return !lPart.isEmpty() && !lPart.contains(other.getType()) ;
@@ -89,6 +94,8 @@ public class ConfigurationImpl implements Configuration {
 	 * @return true si other est dans incompatibilites de part
 	 */
 	private boolean verifConditionInc(Part part,Part other) {
+		Objects.requireNonNull(part);
+		Objects.requireNonNull(other);
 		Set<PartType> lPart = confOr.getCompatibilityChecker().getIncompatibilities(part.getType());
 		return !lPart.isEmpty() && lPart.contains(other.getType());		
 	}
@@ -100,6 +107,8 @@ public class ConfigurationImpl implements Configuration {
 	 * @return true si c est present parmis les categories de selected
 	 */
 	private boolean checkCategories(Category c, Set<Part> selected) {
+		Objects.requireNonNull(c);
+		Objects.requireNonNull(selected);
 		for(Part p : selected) {
 			if(p.getCategory().getName().equals(c.getName())) {
 				return true;
