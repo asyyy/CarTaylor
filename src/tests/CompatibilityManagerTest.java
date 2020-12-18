@@ -26,15 +26,15 @@ public class CompatibilityManagerTest {
 		transmission = new CategoryImpl("Transmission");
 		interior = new CategoryImpl("Interior");
 		
-		EG100 = new PartTypeImpl("EG100",engine);
-		EG133 = new PartTypeImpl("EG133",engine);
-		ED110 = new PartTypeImpl("ED110",engine);
-		EH120 = new PartTypeImpl("EH120",engine);
+		EG100 = new PartTypeImpl("EG100",Engine.class,engine);
+		EG133 = new PartTypeImpl("EG133",Engine.class,engine);
+		ED110 = new PartTypeImpl("ED110",Engine.class,engine);
+		EH120 = new PartTypeImpl("EH120",Engine.class,engine);
 		
-		TSF7 = new PartTypeImpl("TSF7",transmission);
-		TC120 = new PartTypeImpl("TC120",transmission);
+		TSF7 = new PartTypeImpl("TSF7",Transmission.class,transmission);
+		TC120 = new PartTypeImpl("TC120",Transmission.class,transmission);
 
-		IS = new PartTypeImpl("IS",interior);
+		IS = new PartTypeImpl("IS",Interior.class,interior);
 		
 	}
 	@Test
@@ -193,8 +193,29 @@ public class CompatibilityManagerTest {
 		//Vérification que les autre listes n'ont pas été modifiées
 		assertEquals(compareEG133,lEG133);
 		assertEquals(compareEG100,lEG100);
+							
+	}
+	@Test
+	@DisplayName("remove incompatibilités pour erreur logger")
+	void removeIncompatibilitiesError() {
+		Set<PartType> lTSF7 = new HashSet<>();
+		lTSF7.add(ED110);	
+		cm.removeIncompatibility(TSF7, IS);
+		cm.addIncompatibilities(TSF7, lTSF7);
+		
+		Set<PartType> compare = cm.getIncompatibilities(TSF7);
+		assertEquals(compare,lTSF7);
+	}
+	@Test
+	@DisplayName("remove requirement pour erreur logger")
+	void removeRequirementError() {
+		Set<PartType> lTC120 = new HashSet<>();
+		lTC120.add(EH120);
+		cm.removeRequirement(TC120, IS);	
+		cm.addRequirements(TC120, lTC120);	
 		
 		
-			
+		Set<PartType> compare = cm.getRequirements(TC120);
+		assertEquals(compare,lTC120);
 	}
 }

@@ -1,6 +1,8 @@
 package fr.istic.nplouzeau.cartaylor.api;
 
 
+import java.io.PrintStream;
+import java.util.Optional;
 import java.util.Set;
 
 public interface Configuration {
@@ -19,9 +21,9 @@ public interface Configuration {
 
     /**
      * Retourne la liste des pieces selectionnes
-     * @return Set<PartType> piece selectionnes
+     * @return Set<Party> piece selectionnes
      */
-    Set<PartType> getSelectedParts();
+    Set<Part> getSelectedParts();
 
     /**
      * Ajoute une piece a la liste des pieces selectionnes 
@@ -32,9 +34,9 @@ public interface Configuration {
     /**
      * Retourne la selection d'une categorie de piece
      * @param category Category cible
-     * @return PartType pièce de la Category demande
+     * @return Optional<Part> pièce de la Category demande
      */
-    PartType getSelectionForCategory(Category category);
+    Optional<Part> getSelectionForCategory(Category category);
 
     /**
      * Supprime une pièce d'une catégorie
@@ -46,5 +48,18 @@ public interface Configuration {
      * Supprimer toutes les pieces de la selection.
      */
     void clear();
+    
+    /**
+     * Description de la configuration
+     * @param print PrintStream
+     * @return PrintStream String Description des pieces selectionnees ainsi que etat de complete et valid
+     */
+    PrintStream printDescription(PrintStream ps);
+    
+    /**
+     * Affiche le prix de la selection
+     * Seulement si elle est valide
+     */
+    int printPrice();
 
 }

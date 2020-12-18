@@ -36,13 +36,19 @@ public class ConfiguratorImpl implements Configurator {
 	@Override
 	public Set<PartType> getVariants(Category category) {
 		Objects.requireNonNull(category);
-		Category res = new CategoryImpl("");
-		for(Category c : lVariant.keySet()) {
-			if(c.equals(category)) {
-				res = c;
+		/* 
+		 * SonarLint code smell major
+		 * From : for(Category c : lVariant.keySet())
+		 * to : for(Map.Entry<Category, Set<PartType>> entry : lVariant.entrySet())
+		 */
+		for(Map.Entry<Category, Set<PartType>> entry : lVariant.entrySet()) {
+			Category entrykey = entry.getKey();
+			if(entrykey.equals(category)) {
+				return Collections.unmodifiableSet(lVariant.get(entrykey));
 			}
-		}
-		return Collections.unmodifiableSet(lVariant.get(res));
+		}	
+		return new HashSet<>();
+		
 	}
 	
 	@Override
@@ -75,27 +81,27 @@ public class ConfiguratorImpl implements Configurator {
 		this.lCategories.add(interior);
 		
 		
-		PartType EG100 = new PartTypeImpl("EG100",engine);
-		PartType EG133 = new PartTypeImpl("EG133",engine);
-		PartType EG210 = new PartTypeImpl("EG210",engine);
-		PartType ED110 = new PartTypeImpl("ED110",engine);
-		PartType ED180 = new PartTypeImpl("ED180",engine);
-		PartType EH120 = new PartTypeImpl("EH120",engine);
+		PartType EG100 = new PartTypeImpl("EG100",Engine.class,engine);
+		PartType EG133 = new PartTypeImpl("EG133",Engine.class,engine);
+		PartType EG210 = new PartTypeImpl("EG210",Engine.class,engine);
+		PartType ED110 = new PartTypeImpl("ED110",Engine.class,engine);
+		PartType ED180 = new PartTypeImpl("ED180",Engine.class,engine);
+		PartType EH120 = new PartTypeImpl("EH120",Engine.class,engine);
 		
-		PartType TM5 = new PartTypeImpl("TM5",transmission);
-		PartType TM6 = new PartTypeImpl("TM6",transmission);
-		PartType TA5 = new PartTypeImpl("TA5",transmission);
-		PartType TS6 = new PartTypeImpl("TS6",transmission);
-		PartType TSF7 = new PartTypeImpl("TSF7",transmission);
-		PartType TC120 = new PartTypeImpl("TC120",transmission);
+		PartType TM5 = new PartTypeImpl("TM5",Transmission.class,transmission);
+		PartType TM6 = new PartTypeImpl("TM6",Transmission.class,transmission);
+		PartType TA5 = new PartTypeImpl("TA5",Transmission.class,transmission);
+		PartType TS6 = new PartTypeImpl("TS6",Transmission.class,transmission);
+		PartType TSF7 = new PartTypeImpl("TSF7",Transmission.class,transmission);
+		PartType TC120 = new PartTypeImpl("TC120",Transmission.class,transmission);
 		
-		PartType XC = new PartTypeImpl("XC",exterior);
-		PartType XM = new PartTypeImpl("XM",exterior);
-		PartType XS = new PartTypeImpl("XS",exterior);
+		PartType XC = new PartTypeImpl("XC",Exterior.class,exterior);
+		PartType XM = new PartTypeImpl("XM",Exterior.class,exterior);
+		PartType XS = new PartTypeImpl("XS",Exterior.class,exterior);
 		
-		PartType IN = new PartTypeImpl("IN",interior);
-		PartType IH = new PartTypeImpl("IH",interior);
-		PartType IS = new PartTypeImpl("IS",interior);
+		PartType IN = new PartTypeImpl("IN",Interior.class,interior);
+		PartType IH = new PartTypeImpl("IH",Interior.class,interior);
+		PartType IS = new PartTypeImpl("IS",Interior.class,interior);
 		
 		Set<PartType> lEngine = new HashSet<>();
 		Set<PartType> lTrans = new HashSet<>();
@@ -146,6 +152,7 @@ public class ConfiguratorImpl implements Configurator {
 		cm.addIncompatibilities(EG133, lEG133);
 		cm.addIncompatibilities(EG100, lEG100);
 
+		
 	}
 
 }

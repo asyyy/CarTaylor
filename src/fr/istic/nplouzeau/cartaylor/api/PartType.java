@@ -1,5 +1,7 @@
 package fr.istic.nplouzeau.cartaylor.api;
 
+import impl.PartImpl;
+
 public interface PartType {
 	
     /**

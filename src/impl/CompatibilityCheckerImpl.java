@@ -33,7 +33,6 @@ public class CompatibilityCheckerImpl implements CompatibilityChecker{
 		}else {
 			return new HashSet<>();
 		}
-		
 	}
 
 	@Override

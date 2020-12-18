@@ -4,20 +4,19 @@ package tests;
 import static org.junit.Assert.*;
 
 
-import java.util.ArrayList;
 
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 
 import org.junit.jupiter.api.*;
 
 import fr.istic.nplouzeau.cartaylor.api.*;
 import impl.CategoryImpl;
-import impl.CompatibilityCheckerImpl;
 import impl.CompatibilityManagerImpl;
 import impl.ConfigurationImpl;
 import impl.ConfiguratorImpl;
+import impl.Interior;
 import impl.PartTypeImpl;
 
 public class ConfiguratorTest {
@@ -32,9 +31,9 @@ public class ConfiguratorTest {
 	private void initList() {
 
 		interior = new CategoryImpl("Interior");
-		IN = new PartTypeImpl("IN",interior);
-		IH = new PartTypeImpl("IH",interior);
-		IS = new PartTypeImpl("IS",interior);
+		IN = new PartTypeImpl("IN",Interior.class,interior);
+		IH = new PartTypeImpl("IH",Interior.class,interior);
+		IS = new PartTypeImpl("IS",Interior.class,interior);
 	
 	}
 	
@@ -65,19 +64,12 @@ public class ConfiguratorTest {
 		compare.add(IH);
 		compare.add(IS);
 		
-		List<String> lComp = new ArrayList<>();
-		List<String> lCInt = new ArrayList<>();
-		
-		
-		for(PartType p : compare) {
-			lComp.add(p.getName());
-		}
-		for(PartType p : cInterior) {
-			lCInt.add(p.getName());
-		}
-		
-		assertTrue(lCInt.containsAll(lComp));
+		assertTrue(cInterior.containsAll(compare));
 	}
-	
+	@Test
+	void getVariantEmpty() {
+		CategoryImpl suspension = new CategoryImpl("suspension");
+		assertTrue(c.getVariants(suspension).isEmpty());
+	}
 
 }

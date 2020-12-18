@@ -20,7 +20,6 @@ public class CategoryImpl implements Category {
 		return name;
 	}
 	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -37,10 +36,7 @@ public class CategoryImpl implements Category {
 		if (getClass() != obj.getClass())
 			return false;
 		CategoryImpl other = (CategoryImpl) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (!name.equals(other.name))
 			return false;
 		return true;
 	}

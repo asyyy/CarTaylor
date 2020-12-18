@@ -2,8 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
+
 
 import org.junit.jupiter.api.*;
 
@@ -39,59 +39,55 @@ class ConfigurationTest {
 		exterior = new CategoryImpl("Exterior");
 		interior = new CategoryImpl("Interior");
 		
-		EG100 = new PartTypeImpl("EG100",engine);
-		EG133 = new PartTypeImpl("EG133",engine);
-		EG210 = new PartTypeImpl("EG210",engine);
-		ED110 = new PartTypeImpl("ED110",engine);
-		ED180 = new PartTypeImpl("ED180",engine);
-		EH120 = new PartTypeImpl("EH120",engine);
+		EG100 = new PartTypeImpl("EG100",Engine.class,engine);
+		EG133 = new PartTypeImpl("EG133",Engine.class,engine);
+		EG210 = new PartTypeImpl("EG210",Engine.class,engine);
+		ED110 = new PartTypeImpl("ED110",Engine.class,engine);
+		ED180 = new PartTypeImpl("ED180",Engine.class,engine);
+		EH120 = new PartTypeImpl("EH120",Engine.class,engine);
 		
-		TM5 = new PartTypeImpl("TM5",transmission);
-		TM6 = new PartTypeImpl("TM6",transmission);
-		TA5 = new PartTypeImpl("TA5",transmission);
-		TS6 = new PartTypeImpl("TS6",transmission);
-		TSF7 = new PartTypeImpl("TSF7",transmission);
-		TC120 = new PartTypeImpl("TC120",transmission);
+		TM5 = new PartTypeImpl("TM5",Transmission.class,transmission);
+		TM6 = new PartTypeImpl("TM6",Transmission.class,transmission);
+		TA5 = new PartTypeImpl("TA5",Transmission.class,transmission);
+		TS6 = new PartTypeImpl("TS6",Transmission.class,transmission);
+		TSF7 = new PartTypeImpl("TSF7",Transmission.class,transmission);
+		TC120 = new PartTypeImpl("TC120",Transmission.class,transmission);
 		
-		XC = new PartTypeImpl("XC",exterior);
-		XM = new PartTypeImpl("XM",exterior);
-		XS = new PartTypeImpl("XS",exterior);
+		XC = new PartTypeImpl("XC",Exterior.class,exterior);
+		XM = new PartTypeImpl("XM",Exterior.class,exterior);
+		XS = new PartTypeImpl("XS",Exterior.class,exterior);
 		
-		IN = new PartTypeImpl("IN",interior);
-		IH = new PartTypeImpl("IH",interior);
-		IS = new PartTypeImpl("IS",interior);
+		IN = new PartTypeImpl("IN",Interior.class,interior);
+		IH = new PartTypeImpl("IH",Interior.class,interior);
+		IS = new PartTypeImpl("IS",Interior.class,interior);
 		
 	}
 	@Test
 	void isCompleteTrue() {
-		
-
-		
 		confIon.selectPart(ED110);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);
 		confIon.selectPart(IN);
 		assertTrue(confIon.isComplete());
 	}
+	
 	@Test
-	void isCompleteFalse() {
-
-		
-		
+	void isCompleteFalse() {		
 		confIon.selectPart(ED110);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);
 		assertFalse(confIon.isComplete());
 	}
+	
 	@Test
 	void isValidTrue() {
-				
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
 		confIon.selectPart(XC);
-		confIon.selectPart(IN);
+		confIon.selectPart(IN);	
 		assertTrue(confIon.isValid());
 	}
+		
 	@Test
 	void isValidFalseIncompatibility() {
 				
@@ -112,27 +108,24 @@ class ConfigurationTest {
 		assertFalse(confIon.isValid());
 	}
 	@Test
-	void getSelectedPart() {
-
-		
-		PartType EG100 = new PartTypeImpl("EG100",engine);
-		
-		
-		confIon.selectPart(EG100);
-		Set<PartType> compare = new HashSet<>();
-		compare.add(EG100);
-		assertEquals(confIon.getSelectedParts(),compare);
+	void getSelectedPart() {			
+		confIon.selectPart(EG100);		
+		assertFalse(confIon.getSelectedParts().isEmpty());
 	}
 	@Test
     void selectPartTrue() {
+		
 		confIon.selectPart(EG100);
-		assertTrue(confIon.getSelectedParts().contains(EG100));
+		Optional<Part> p = confIon.getSelectionForCategory(engine);
+		String in = p.get().getType().getName();
+		assertTrue(in.equals(EG100.getName()));
+		
     }
 	
 	@Test
     void selectPartFalse() {
-		confIon.selectPart(EG100);
-		assertFalse(confIon.getSelectedParts().contains(EG210));
+		Optional<Part> p = confIon.getSelectionForCategory(engine);
+		assertTrue(p.isEmpty());
     }
 	@Test
 	void unselectPart() {
@@ -141,7 +134,8 @@ class ConfigurationTest {
 		confIon.selectPart(EG100);
 		confIon.selectPart(TM5);
 		confIon.unselectPartType(transmission);
-		assertFalse(confIon.getSelectedParts().contains(TM5));
+		Optional<Part> p = confIon.getSelectionForCategory(transmission);
+		assertTrue(p.isEmpty());
 	}
 	@Test
 	void getSelectionForCategory() {
@@ -151,11 +145,20 @@ class ConfigurationTest {
 		confIon.selectPart(XC);
 		confIon.selectPart(IN);
 		
-		assertEquals(confIon.getSelectionForCategory(engine).getName(),EG100.getName());
-		assertEquals(confIon.getSelectionForCategory(transmission).getName(),TM5.getName());
-		assertEquals(confIon.getSelectionForCategory(exterior).getName(),XC.getName());
-		assertEquals(confIon.getSelectionForCategory(interior).getName(),IN.getName());
+		assertTrue(confIon.getSelectionForCategory(engine).isPresent());
+		assertTrue(confIon.getSelectionForCategory(transmission).isPresent());
+		assertTrue(confIon.getSelectionForCategory(exterior).isPresent());
+		assertTrue(confIon.getSelectionForCategory(interior).isPresent());
 	}
+	@Test
+	void unselectPartError() {
+		confIon.unselectPartType(exterior);
+		/**
+		 * Je n'ai pas reussi a assertEquals avec les resultats de logger
+		 */
+		assertTrue(confIon.getSelectedParts().isEmpty());
+	}
+	
 	@Test
 	void clear() {
 

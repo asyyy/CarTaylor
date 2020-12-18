@@ -3,13 +3,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import fr.istic.nplouzeau.cartaylor.api.CompatibilityManager;
 
 import fr.istic.nplouzeau.cartaylor.api.PartType;
 
 public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implements CompatibilityManager {
-	
+	private static final Logger LOGGER = Logger.getLogger(CompatibilityManagerImpl.class.getName());
 	/**
 	 * Constructeur de CompatibilityManagerImpl
 	 * 
@@ -45,7 +46,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 			}
 			
 		}else {
-			System.err.println(reference + " n'est pas une cle dans la liste d'incompatibilite");
+			LOGGER.warning(() -> reference + " n'est pas une cle dans la liste d'incompatibilite");
 		}
 		
 	}
@@ -78,7 +79,7 @@ public class CompatibilityManagerImpl extends CompatibilityCheckerImpl implement
 			}
 			
 		}else {
-			System.err.println(reference + " n'est pas une cle dans la liste de pre-requis");
+			LOGGER.warning(() ->reference + " n'est pas une cle dans la liste de pre-requis");
 		}
 		
 	}
