@@ -9,28 +9,28 @@ public class ResultatPropertiesTest {
 	public ResultatPropertiesTest() {};
 	/**
 	 * Getter de test4
-	 * @return
+	 * @return String
 	 */
 	public String getTest4() {
 		return test4;
 	}
 	/**
 	 * Getter de test3
-	 * @return
+	 * @return String
 	 */
 	public String getTest3() {
 		return test3;
 	}
 	/**
 	 * Getter de test2
-	 * @return
+	 * @return String
 	 */
 	public String getTest2() {
 		return test2;
 	}
 	/**
 	 * Getter de test1
-	 * @return
+	 * @return String
 	 */
 	public String getTest1() {
 		return test1;

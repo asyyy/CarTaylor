@@ -86,15 +86,15 @@ public class Transmission extends PartImpl {
 	}
 	/**
 	 * Setter de boite
-	 * @param carbu String non null
+	 * @param carburant String non null
 	 */
-	public void setBoite(String carbu) {
-		Objects.requireNonNull(carbu);
-		this.boite = carbu;
+	public void setBoite(String carburant) {
+		Objects.requireNonNull(carburant);
+		this.boite = carburant;
 	}
 	/**
 	 * Setter de boite
-	 * @param carbu String non null
+	 * @param puissance String non null
 	 */
 	public void setVitesse(String puissance) {
 		Objects.requireNonNull(puissance);

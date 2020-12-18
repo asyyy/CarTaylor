@@ -21,7 +21,7 @@ public interface Configuration {
 
     /**
      * Retourne la liste des pieces selectionnes
-     * @return Set<Party> piece selectionnes
+     * @return Set Part piece selectionnes
      */
     Set<Part> getSelectedParts();
 
@@ -34,7 +34,7 @@ public interface Configuration {
     /**
      * Retourne la selection d'une categorie de piece
      * @param category Category cible
-     * @return Optional<Part> pièce de la Category demande
+     * @return Optional Part pièce de la Category demande
      */
     Optional<Part> getSelectionForCategory(Category category);
 
@@ -51,7 +51,7 @@ public interface Configuration {
     
     /**
      * Description de la configuration
-     * @param print PrintStream
+     * @param ps PrintStream
      * @return PrintStream String Description des pieces selectionnees ainsi que etat de complete et valid
      */
     PrintStream printDescription(PrintStream ps);
@@ -59,6 +59,7 @@ public interface Configuration {
     /**
      * Affiche le prix de la selection
      * Seulement si elle est valide
+     * @return int montant total de la selection
      */
     int printPrice();
 

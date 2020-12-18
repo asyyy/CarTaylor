@@ -8,7 +8,7 @@ public interface PropertyManager {
 	/**
 	 * Returns an immutable set of the property names supported by the property manager.
 	 * 
-	 * @return
+	 * @return Set String noms des properties
 	 */
 	public Set<String> getPropertyNames();
 
@@ -27,7 +27,7 @@ public interface PropertyManager {
 	 * Returns the optional value of a property.
 	 * If the object does not support that property then an empty optional is returned.
 	 * @param propertyName the property to read
-	 * @return
+	 * @return Optional String associe a propertyName
 	 */
 	public Optional<String> getProperty(String propertyName);
 
@@ -35,8 +35,8 @@ public interface PropertyManager {
 	 * Sets the value of a given property.
 	 * If there is not such property, or if it not writable, or if the value is invalid
 	 * then an IllegalArgumentException is thrown.
-	 * @param propertyName
-	 * @param propertyValue
+	 * @param propertyName String
+	 * @param propertyValue	String
 	 * @throws IllegalArgumentException  (see above)
 	 */
 	void setProperty(String propertyName, String propertyValue);

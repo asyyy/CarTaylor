@@ -64,7 +64,7 @@ public class Interior extends PartImpl {
 	}
 	/**
 	 * Setter de color
-	 * @param color
+	 * @param interior String 
 	 */
 	public void setInterior(String interior) {
 		Objects.requireNonNull(interior);

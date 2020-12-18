@@ -17,10 +17,10 @@ public class PartTypeImpl implements PartType {
 	 * @param classRef PartImpl ou sous classe de PartImpl 
 	 * @param cat Category associe, non null
 	 */
-	public PartTypeImpl(String name, Class<? extends PartImpl> classRef, Category category) {
+	public PartTypeImpl(String name, Class<? extends PartImpl> classRef, Category cat) {
 		this.name = name;
 		this.classRef = classRef;
-		this.cat = category;
+		this.cat = cat;
 	}
 	
 	public PartImpl newInstance() {
